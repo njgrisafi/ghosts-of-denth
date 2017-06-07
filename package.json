@@ -1,0 +1,30 @@
+{
+  "name": "ghosts-of-denth",
+  "version": "0.0.1",
+  "description": "Ghosts of Denth: an RPG",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha --recursive test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrpudn/ghosts-of-denth.git"
+  },
+  "keywords": [
+    "ghosts",
+    "denth",
+    "rpg"
+  ],
+  "author": "zach.mcauliffe@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrpudn/ghosts-of-denth/issues"
+  },
+  "homepage": "https://github.com/mrpudn/ghosts-of-denth#readme",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "mocha": "^3.4.2",
+    "sinon": "^2.3.2"
+  }
+}
