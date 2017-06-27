@@ -2,6 +2,9 @@
 # node modules
 node_modules
 
+# logs
+*.log
+
 # code coverage
 .nyc_output
 coverage
