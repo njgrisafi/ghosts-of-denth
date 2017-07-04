@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "nyc mocha --recursive test"
+    "test": "nyc --reporter=html --reporter=text mocha --recursive test"
   },
   "repository": {
     "type": "git",
