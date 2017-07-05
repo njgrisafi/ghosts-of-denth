@@ -1,7 +1,7 @@
 const assert = require("assert")
 const character = require("../lib/character")
 
-describe("character functions", () => {
+describe("characters", () => {
   describe("creating characters", () => {
     it("creates a new character", () => {
       character()
@@ -17,11 +17,13 @@ describe("character functions", () => {
         .willpower.assert(5)
         .luck.assert(5)
     })
+  })
+  describe("creating characters of various races", () =>  {
     it("creates Dwarves", () => {
       character()
         .race.set("dwarf")
-        .level.up()
         .race.assert("dwarf")
+        .level.up()
         .strength.assert(7)
         .intelligence.assert(5)
         .dexterity.assert(6)
@@ -32,8 +34,8 @@ describe("character functions", () => {
     it("creates Elves", () => {
       character()
         .race.set("elf")
-        .level.up()
         .race.assert("elf")
+        .level.up()
         .strength.assert(5)
         .intelligence.assert(7)
         .dexterity.assert(8)
@@ -44,8 +46,8 @@ describe("character functions", () => {
     it("creates Humans", () => {
       character()
         .race.set("human")
-        .level.up()
         .race.assert("human")
+        .level.up()
         .strength.assert(6)
         .intelligence.assert(6)
         .dexterity.assert(6)
@@ -56,8 +58,8 @@ describe("character functions", () => {
     it("creates Orcs", () => {
       character()
         .race.set("orc")
-        .level.up()
         .race.assert("orc")
+        .level.up()
         .strength.assert(8)
         .intelligence.assert(5)
         .dexterity.assert(6)
@@ -73,11 +75,13 @@ describe("character functions", () => {
         assert.equal(e.message, "Invalid race: asdf")
       }
     })
+  })
+  describe("creating characters of various character classes", () => {
     it("creates Archers", () => {
       character()
         .class.set("archer")
-        .level.up()
         .race.assert("archer")
+        .level.up()
         .strength.assert(6)
         .intelligence.assert(5)
         .dexterity.assert(8)
@@ -88,8 +92,8 @@ describe("character functions", () => {
     it("creates Magicians", () => {
       character()
         .class.set("magician")
-        .level.up()
         .race.assert("magician")
+        .level.up()
         .strength.assert(5)
         .intelligence.assert(8)
         .dexterity.assert(5)
@@ -100,8 +104,8 @@ describe("character functions", () => {
     it("creates Rogues", () => {
       character()
         .class.set("rogue")
-        .level.up()
         .race.assert("rogue")
+        .level.up()
         .strength.assert(6)
         .intelligence.assert(5)
         .dexterity.assert(7)
@@ -112,8 +116,8 @@ describe("character functions", () => {
     it("creates Warriors", () => {
       character()
         .class.set("warrior")
-        .level.up()
         .race.assert("warrior")
+        .level.up()
         .strength.assert(8)
         .intelligence.assert(5)
         .dexterity.assert(6)
@@ -121,12 +125,12 @@ describe("character functions", () => {
         .willpower.assert(5)
         .luck.assert(5)
     })
-    it("fails to create invalid classes", () => {
+    it("fails to create invalid character classes", () => {
       try {
         character().class.set("asdf")
-        throw new Error("Expected invalid class error")
+        throw new Error("Expected invalid character class error")
       } catch (e) {
-        assert.equal(e.message, "Invalid class: asdf")
+        assert.equal(e.message, "Invalid character class: asdf")
       }
     })
   })
@@ -157,13 +161,13 @@ describe("character functions", () => {
         .attributePoints.assert(18)
     })
     it("fails to level up with insufficient experience", () => {
-      let c = character().level.up().character
+      let c = character().level.up()
       try {
-        c = character(c).level.up().character
+        c.level.up()
         throw new Error("Expected insufficient experience error")
       } catch (e) {
         assert.equal(e.message, "Insufficient experience")
-        character(c).level.assert(1)
+        c.level.assert(1)
       }
     })
   })
