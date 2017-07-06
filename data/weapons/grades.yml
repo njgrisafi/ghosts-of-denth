@@ -1,0 +1,19 @@
+grades:
+  legendary:
+    name: Legendary
+  mythic:
+    name: Mythic
+  epic:
+    name: Epic
+  flawless:
+    name: Flawless
+  exquisite:
+    name: Exquisite
+  common:
+    name: Common
+  inferior:
+    name: Inferior
+  flawed:
+    name: Flawed
+  broken:
+    name: Broken

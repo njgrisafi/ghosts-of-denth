@@ -1,0 +1,5 @@
+handednesses:
+  one-handed:
+    name: One-handed
+  two-handed:
+    name: Two-handed

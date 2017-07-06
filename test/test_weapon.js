@@ -6,7 +6,7 @@ describe("weapons", () => {
     it("creates a new weapon", () => {
       weapon()
         .grade.assert(null)
-        .handedness.assert(1)
+        .handedness.assert("one-handed")
         .material.assert(null)
         .class.assert(null)
         .name.assert("Weapon")
@@ -14,7 +14,7 @@ describe("weapons", () => {
     it("creates a weapon with a full name", () => {
       weapon()
         .grade.set("legendary")
-        .handedness.set(2)
+        .handedness.set("two-handed")
         .material.set("carbon")
         .class.set("axe")
         .name.assert("Legendary Two-handed Carbon Axe")
@@ -87,28 +87,23 @@ describe("weapons", () => {
   describe("creating weapons with handedness", () => {
     it("creates one-handed weapons", () => {
       weapon()
-        .handedness.set(1)
-        .handedness.assert(1)
+        .handedness.set("one-handed")
+        .handedness.assert("one-handed")
         .name.assert("Weapon")
     })
     it("creates two-handed weapons", () => {
       weapon()
-        .handedness.set(2)
-        .handedness.assert(2)
+        .handedness.set("two-handed")
+        .handedness.assert("two-handed")
         .name.assert("Two-handed Weapon")
     })
     it("fails to created weapons with invalid handedness", () => {
-      const test = (handedness) => {
-        try {
-          weapon().handedness.set(handedness)
-          throw new Error("Expected invalid handedness error")
-        } catch (e) {
-          assert.equal(e.message, `Invalid handedness: ${handedness}`)
-        }
+      try {
+        weapon().handedness.set("asdf")
+        throw new Error("Expected invalid handedness error")
+      } catch (e) {
+        assert.equal(e.message, "Invalid handedness: asdf")
       }
-      test(3)
-      test(-1)
-      test("asdf")
     })
   })
   describe("creating weapons from various materials", () => {
