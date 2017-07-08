@@ -1,75 +1,82 @@
 const assert = require("assert")
+const _ = require("lodash")
+const compose = _.flowRight
 const character = require("../lib/character")
 
 describe("characters", () => {
   describe("creating characters", () => {
     it("creates a new character", () => {
-      character()
-        .race.assert(null)
-        .class.assert(null)
-        .level.assert(0)
-        .experience.assert(0)
-        .attributePoints.assert(0)
-        .strength.assert(5, {}, 5)
-        .intelligence.assert(5, {}, 5)
-        .dexterity.assert(5, {}, 5)
-        .endurance.assert(5, {}, 5)
-        .willpower.assert(5, {}, 5)
-        .luck.assert(5, {}, 5)
+      compose(
+        character.luck.assert(5, {}, 5),
+        character.willpower.assert(5, {}, 5),
+        character.endurance.assert(5, {}, 5),
+        character.dexterity.assert(5, {}, 5),
+        character.intelligence.assert(5, {}, 5),
+        character.strength.assert(5, {}, 5),
+        character.attributePoints.assert(0),
+        character.experience.assert(0),
+        character.level.assert(0),
+        character.class.assert(null),
+        character.race.assert(null)
+      )(character.create())
     })
   })
   describe("creating characters of various races", () =>  {
     it("creates Dwarves", () => {
-      character()
-        .race.set("dwarf")
-        .race.assert("dwarf")
-        .level.up()
-        .strength.assert(5, { race: 2 }, 7)
-        .intelligence.assert(5, {}, 5)
-        .dexterity.assert(5, { race: 1 }, 6)
-        .endurance.assert(5, { race: 1 }, 6)
-        .willpower.assert(5, {}, 5)
-        .luck.assert(5, { race: 2 }, 7)
+      compose(
+        character.luck.assert(5, { race: 2 }, 7),
+        character.willpower.assert(5, {}, 5),
+        character.endurance.assert(5, { race: 1 }, 6),
+        character.dexterity.assert(5, { race: 1 }, 6),
+        character.intelligence.assert(5, {}, 5),
+        character.strength.assert(5, { race: 2 }, 7),
+        character.level.up(),
+        character.race.assert("dwarf"),
+        character.race.set("dwarf")
+      )(character.create())
     })
     it("creates Elves", () => {
-      character()
-        .race.set("elf")
-        .race.assert("elf")
-        .level.up()
-        .strength.assert(5, {}, 5)
-        .intelligence.assert(5, { race: 2 }, 7)
-        .dexterity.assert(5, { race: 3 }, 8)
-        .endurance.assert(5, {}, 5)
-        .willpower.assert(5, { race: 1 }, 6)
-        .luck.assert(5, {}, 5)
+      compose(
+        character.luck.assert(5, {}, 5),
+        character.willpower.assert(5, { race: 1 }, 6),
+        character.endurance.assert(5, {}, 5),
+        character.dexterity.assert(5, { race: 3 }, 8),
+        character.intelligence.assert(5, { race: 2 }, 7),
+        character.strength.assert(5, {}, 5),
+        character.level.up(),
+        character.race.assert("elf"),
+        character.race.set("elf")
+      )(character.create())
     })
     it("creates Humans", () => {
-      character()
-        .race.set("human")
-        .race.assert("human")
-        .level.up()
-        .strength.assert(5, { race: 1 }, 6)
-        .intelligence.assert(5, { race: 1 }, 6)
-        .dexterity.assert(5, { race: 1 }, 6)
-        .endurance.assert(5, { race: 1 }, 6)
-        .willpower.assert(5, { race: 1 }, 6)
-        .luck.assert(5, { race: 1 }, 6)
+      compose(
+        character.luck.assert(5, { race: 1 }, 6),
+        character.willpower.assert(5, { race: 1 }, 6),
+        character.endurance.assert(5, { race: 1 }, 6),
+        character.dexterity.assert(5, { race: 1 }, 6),
+        character.intelligence.assert(5, { race: 1 }, 6),
+        character.strength.assert(5, { race: 1 }, 6),
+        character.level.up(),
+        character.race.assert("human"),
+        character.race.set("human")
+      )(character.create())
     })
     it("creates Orcs", () => {
-      character()
-        .race.set("orc")
-        .race.assert("orc")
-        .level.up()
-        .strength.assert(5, { race: 3 }, 8)
-        .intelligence.assert(5, {}, 5)
-        .dexterity.assert(5, { race: 1 }, 6)
-        .endurance.assert(5, { race: 2 }, 7)
-        .willpower.assert(5, {}, 5)
-        .luck.assert(5, {}, 5)
+      compose(
+        character.luck.assert(5, {}, 5),
+        character.willpower.assert(5, {}, 5),
+        character.endurance.assert(5, { race: 2 }, 7),
+        character.dexterity.assert(5, { race: 1 }, 6),
+        character.intelligence.assert(5, {}, 5),
+        character.strength.assert(5, { race: 3 }, 8),
+        character.level.up(),
+        character.race.assert("orc"),
+        character.race.set("orc")
+      )(character.create())
     })
     it("fails to create invalid races", () => {
       try {
-        character().race.set("asdf")
+        character.race.set("asdf", character.create())
         throw new Error("Expected invalid race error")
       } catch (e) {
         assert.equal(e.message, "Invalid race: asdf")
@@ -78,56 +85,60 @@ describe("characters", () => {
   })
   describe("creating characters of various character classes", () => {
     it("creates Archers", () => {
-      character()
-        .class.set("archer")
-        .class.assert("archer")
-        .level.up()
-        .strength.assert(5, { class: 1 }, 6)
-        .intelligence.assert(5, {}, 5)
-        .dexterity.assert(5, { class: 3 }, 8)
-        .endurance.assert(5, {}, 5)
-        .willpower.assert(5, {}, 5)
-        .luck.assert(5, { class: 2 }, 7)
+      compose(
+        character.luck.assert(5, { class: 2 }, 7),
+        character.willpower.assert(5, {}, 5),
+        character.endurance.assert(5, {}, 5),
+        character.dexterity.assert(5, { class: 3 }, 8),
+        character.intelligence.assert(5, {}, 5),
+        character.strength.assert(5, { class: 1 }, 6),
+        character.level.up(),
+        character.class.assert("archer"),
+        character.class.set("archer")
+      )(character.create())
     })
     it("creates Magicians", () => {
-      character()
-        .class.set("magician")
-        .class.assert("magician")
-        .level.up()
-        .strength.assert(5, {}, 5)
-        .intelligence.assert(5, { class: 3 }, 8)
-        .dexterity.assert(5, {}, 5)
-        .endurance.assert(5, {}, 5)
-        .willpower.assert(5, { class: 3 }, 8)
-        .luck.assert(5, {}, 5)
+      compose(
+        character.luck.assert(5, {}, 5),
+        character.willpower.assert(5, { class: 3 }, 8),
+        character.endurance.assert(5, {}, 5),
+        character.dexterity.assert(5, {}, 5),
+        character.intelligence.assert(5, { class: 3 }, 8),
+        character.strength.assert(5, {}, 5),
+        character.level.up(),
+        character.class.assert("magician"),
+        character.class.set("magician")
+      )(character.create())
     })
     it("creates Rogues", () => {
-      character()
-        .class.set("rogue")
-        .class.assert("rogue")
-        .level.up()
-        .strength.assert(5, { class: 1 }, 6)
-        .intelligence.assert(5, {}, 5)
-        .dexterity.assert(5, { class: 2 }, 7)
-        .endurance.assert(5, {}, 5)
-        .willpower.assert(5, {}, 5)
-        .luck.assert(5, { class: 3 }, 8)
+      compose(
+        character.luck.assert(5, { class: 3 }, 8),
+        character.willpower.assert(5, {}, 5),
+        character.endurance.assert(5, {}, 5),
+        character.dexterity.assert(5, { class: 2 }, 7),
+        character.intelligence.assert(5, {}, 5),
+        character.strength.assert(5, { class: 1 }, 6),
+        character.level.up(),
+        character.class.assert("rogue"),
+        character.class.set("rogue")
+      )(character.create())
     })
     it("creates Warriors", () => {
-      character()
-        .class.set("warrior")
-        .class.assert("warrior")
-        .level.up()
-        .strength.assert(5, { class: 3 }, 8)
-        .intelligence.assert(5, {}, 5)
-        .dexterity.assert(5, { class: 1 }, 6)
-        .endurance.assert(5, { class: 2 }, 7)
-        .willpower.assert(5, {}, 5)
-        .luck.assert(5, {}, 5)
+      compose(
+        character.luck.assert(5, {}, 5),
+        character.willpower.assert(5, {}, 5),
+        character.endurance.assert(5, { class: 2 }, 7),
+        character.dexterity.assert(5, { class: 1 }, 6),
+        character.intelligence.assert(5, {}, 5),
+        character.strength.assert(5, { class: 3 }, 8),
+        character.level.up(),
+        character.class.assert("warrior"),
+        character.class.set("warrior")
+      )(character.create())
     })
     it("fails to create invalid character classes", () => {
       try {
-        character().class.set("asdf")
+        character.class.set("asdf", character.create())
         throw new Error("Expected invalid character class error")
       } catch (e) {
         assert.equal(e.message, "Invalid character class: asdf")
@@ -136,135 +147,148 @@ describe("characters", () => {
   })
   describe("creating characters of races and character classes", () => {
     it("creates Dwarf Rogues", () => {
-      character()
-        .race.set("dwarf")
-        .race.assert("dwarf")
-        .class.set("rogue")
-        .class.assert("rogue")
-        .level.up()
-        .strength.assert(5, { race: 2, class: 1 }, 8)
-        .intelligence.assert(5, {}, 5)
-        .dexterity.assert(5, { race: 1, class: 2 }, 8)
-        .endurance.assert(5, { race: 1 }, 6)
-        .willpower.assert(5, {}, 5)
-        .luck.assert(5, { race: 2, class: 3 }, 10)
+      compose(
+        character.luck.assert(5, { race: 2, class: 3 }, 10),
+        character.willpower.assert(5, {}, 5),
+        character.endurance.assert(5, { race: 1 }, 6),
+        character.dexterity.assert(5, { race: 1, class: 2 }, 8),
+        character.intelligence.assert(5, {}, 5),
+        character.strength.assert(5, { race: 2, class: 1 }, 8),
+        character.level.up(),
+        character.class.assert("rogue"),
+        character.class.set("rogue"),
+        character.race.assert("dwarf"),
+        character.race.set("dwarf")
+      )(character.create())
     })
     it("creates Elf Archers", () => {
-      character()
-        .race.set("elf")
-        .race.assert("elf")
-        .class.set("archer")
-        .class.assert("archer")
-        .level.up()
-        .strength.assert(5, { class: 1 }, 6)
-        .intelligence.assert(5, { race: 2 }, 7)
-        .dexterity.assert(5, { race: 3, class: 3 }, 11)
-        .endurance.assert(5, {}, 5)
-        .willpower.assert(5, { race: 1 }, 6)
-        .luck.assert(5, { class: 2 }, 7)
+      compose(
+        character.luck.assert(5, { class: 2 }, 7),
+        character.willpower.assert(5, { race: 1 }, 6),
+        character.endurance.assert(5, {}, 5),
+        character.dexterity.assert(5, { race: 3, class: 3 }, 11),
+        character.intelligence.assert(5, { race: 2 }, 7),
+        character.strength.assert(5, { class: 1 }, 6),
+        character.level.up(),
+        character.class.assert("archer"),
+        character.class.set("archer"),
+        character.race.assert("elf"),
+        character.race.set("elf")
+      )(character.create())
     })
     it("creates Human Magicians", () => {
-      character()
-        .race.set("human")
-        .race.assert("human")
-        .class.set("magician")
-        .class.assert("magician")
-        .level.up()
-        .strength.assert(5, { race: 1 }, 6)
-        .intelligence.assert(5, { race: 1, class: 3 }, 9)
-        .dexterity.assert(5, { race: 1 }, 6)
-        .endurance.assert(5, { race: 1 }, 6)
-        .willpower.assert(5, { race: 1, class: 3 }, 9)
-        .luck.assert(5, { race: 1 }, 6)
+      compose(
+        character.luck.assert(5, { race: 1 }, 6),
+        character.willpower.assert(5, { race: 1, class: 3 }, 9),
+        character.endurance.assert(5, { race: 1 }, 6),
+        character.dexterity.assert(5, { race: 1 }, 6),
+        character.intelligence.assert(5, { race: 1, class: 3 }, 9),
+        character.strength.assert(5, { race: 1 }, 6),
+        character.level.up(),
+        character.class.assert("magician"),
+        character.class.set("magician"),
+        character.race.assert("human"),
+        character.race.set("human")
+      )(character.create())
     })
     it("creates Orc Warriors", () => {
-      character()
-        .race.set("orc")
-        .race.assert("orc")
-        .class.set("warrior")
-        .class.assert("warrior")
-        .level.up()
-        .strength.assert(5, { race: 3, class: 3 }, 11)
-        .intelligence.assert(5, {}, 5)
-        .dexterity.assert(5, { race: 1, class: 1 }, 7)
-        .endurance.assert(5, { race: 2, class: 2 }, 9)
-        .willpower.assert(5, {}, 5)
-        .luck.assert(5, {}, 5)
+      compose(
+        character.luck.assert(5, {}, 5),
+        character.willpower.assert(5, {}, 5),
+        character.endurance.assert(5, { race: 2, class: 2 }, 9),
+        character.dexterity.assert(5, { race: 1, class: 1 }, 7),
+        character.intelligence.assert(5, {}, 5),
+        character.strength.assert(5, { race: 3, class: 3 }, 11),
+        character.level.up(),
+        character.class.assert("warrior"),
+        character.class.set("warrior"),
+        character.race.assert("orc"),
+        character.race.set("orc")
+      )(character.create())
     })
   })
   describe("gaining experience", () => {
     it("gains experience", () => {
-      const points = 5
-      character()
-        .level.up()
-        .experience.gain(points)
-        .level.assert(1)
-        .experience.assert(5)
-        .attributePoints.assert(6)
+      compose(
+        character.attributePoints.assert(6),
+        character.experience.assert(5),
+        character.level.assert(1),
+        character.experience.gain(5),
+        character.level.up()
+      )(character.create())
     })
     it("gains experience and levels up", () => {
-      character()
-        .level.up()
-        .update((c) => c.experience.gain(c.experience.needed(1)))
-        .level.assert(2)
-        .experience.assert(0)
-        .attributePoints.assert(12)
+      compose(
+        character.attributePoints.assert(12),
+        character.experience.assert(0),
+        character.level.assert(2),
+        (c) => character.experience.gain(character.experience.needed(1, c), c),
+        character.level.up()
+      )(character.create())
     })
     it("gains experience and levels up twice", () => {
-      character()
-        .level.up()
-        .update((c) => c.experience.gain(c.experience.needed(2)))
-        .level.assert(3)
-        .experience.assert(0)
-        .attributePoints.assert(18)
+      compose(
+        character.attributePoints.assert(18),
+        character.experience.assert(0),
+        character.level.assert(3),
+        (c) => character.experience.gain(character.experience.needed(2, c), c),
+        character.level.up()
+      )(character.create())
     })
     it("fails to level up with insufficient experience", () => {
-      let c = character().level.up()
       try {
-        c.level.up()
+        compose(
+          character.level.up(),
+          character.level.up()
+        )(character.create())
         throw new Error("Expected insufficient experience error")
       } catch (e) {
         assert.equal(e.message, "Insufficient experience")
-        c.level.assert(1)
       }
     })
   })
   describe("allocating attribute points", () => {
     it("allocates attribute points", () => {
-      const test = (chain, attribute, expected) => {
-        chain[attribute].allocate(1)
-        chain[attribute].assert(6)
-        chain.attributePoints.assert(expected)
-        return chain
-      }
-      character()
-        .level.up()
-        .update((c) => test(c, "strength", 5))
-        .update((c) => test(c, "intelligence", 4))
-        .update((c) => test(c, "dexterity", 3))
-        .update((c) => test(c, "endurance", 2))
-        .update((c) => test(c, "willpower", 1))
-        .update((c) => test(c, "luck", 0))
+      const alloc1assert = (a, e) => compose(
+        character.attributePoints.assert(e),
+        a.assert(6, {}, 6),
+        a.allocate(1)
+      )
+      compose(
+        alloc1assert(character.luck, 0),
+        alloc1assert(character.willpower, 1),
+        alloc1assert(character.endurance, 2),
+        alloc1assert(character.dexterity, 3),
+        alloc1assert(character.intelligence, 4),
+        alloc1assert(character.strength, 5),
+        character.attributePoints.assert(6),
+        character.level.up()
+      )(character.create())
     })
     it("can't allocate insufficient attribute points", () => {
-      const test = (chain, attribute) => {
-        try {
-          chain[attribute].allocate(7)
-          throw new Error("Expected insufficient attribute points error")
-        } catch (e) {
-          assert.equal(e.message, "Insufficient attribute points")
-          chain[attribute].assert(5).attributePoints.assert(6)
+      const tryalloc7 = (a) => {
+        return (c) => {
+          try {
+            a.allocate(7, c)
+            throw new Error("Expected insufficient attribute points error")
+          } catch (e) {
+            assert.equal(e.message, "Insufficient attribute points")
+          }
+          return compose(
+            a.assert(5, {}, 5),
+            character.attributePoints.assert(6)
+          )(c)
         }
-        return chain
       }
-      character()
-        .level.up()
-        .update((c) => test(c, "strength"))
-        .update((c) => test(c, "intelligence"))
-        .update((c) => test(c, "dexterity"))
-        .update((c) => test(c, "endurance"))
-        .update((c) => test(c, "willpower"))
-        .update((c) => test(c, "luck"))
+      compose(
+        tryalloc7(character.luck),
+        tryalloc7(character.willpower),
+        tryalloc7(character.endurance),
+        tryalloc7(character.dexterity),
+        tryalloc7(character.intelligence),
+        tryalloc7(character.strength),
+        character.level.up()
+      )(character.create())
     })
   })
 })
