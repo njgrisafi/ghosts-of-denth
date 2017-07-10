@@ -180,7 +180,7 @@ describe("weapons", () => {
       }
     })
   })
-  describe("creating weapons of various weapon types", () => {
+  describe("creating weapons of various types", () => {
     it("creates Axes", () => {
       compose(
         weapon.name.assert("Axe"),
@@ -293,7 +293,7 @@ describe("weapons", () => {
         weapon.type.set("whip")
       )(weapon.create())
     })
-    it("fails to create weapons of invalid weapon types", () => {
+    it("fails to create invalid weapon types", () => {
       try {
         weapon.type.set("asdf", weapon.create())
         throw new Error("Expected invalid weapon type error")

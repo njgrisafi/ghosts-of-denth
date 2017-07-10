@@ -1,0 +1,67 @@
+types:
+
+  plate:
+    helmet:
+      name: Plate Helmet
+    cuirass:
+      name: Plate Cuirass
+    greaves:
+      name: Plate Greaves
+    gauntlets:
+      name: Plate Gauntlets
+    boots:
+      name: Plate Boots
+
+  scalemail:
+    coif:
+      name: Scalemail Coif
+    hauberk:
+      name: Scalemail Hauberk
+    leggings:
+      name: Scalemail Leggings
+
+  chainmail:
+    coif:
+      name: Chainmail Coif
+    hauberk:
+      name: Chainmail Hauberk
+    leggings:
+      name: Chainmail Leggings
+
+  hide:
+    helmet:
+      name: Helmet
+    hat:
+      name: Hat
+    cowl:
+      name: Cowl
+    cuirass:
+      name: Cuirass
+    vest:
+      name: Vest
+    leggings:
+      name: Leggings
+    bracers:
+      name: Bracers
+    gloves:
+      name: Gloves
+    boots:
+      name: Boots
+    shoes:
+      name: Shoes
+
+  cloth:
+    hat:
+      name: Hat
+    cowl:
+      name: Cowl
+    tunic:
+      name: Tunic
+    robe:
+      name: Robe
+    trousers:
+      name: Trousers
+    gloves:
+      name: Gloves
+    shoes:
+      name: Shoes
