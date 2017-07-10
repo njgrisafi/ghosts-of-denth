@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "nyc --reporter=html --reporter=text mocha --recursive test"
+    "test": "npm run test:cover",
+    "test:no-cover": "mocha --recursive test",
+    "test:cover": "nyc --reporter=html --reporter=text npm run test:no-cover"
   },
   "repository": {
     "type": "git",

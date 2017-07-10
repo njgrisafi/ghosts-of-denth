@@ -1,15 +1,22 @@
 materials:
+
   copper:
     name: Copper
+
   bronze:
     name: Bronze
+
   iron:
     name: Iron
+
   steel:
     name: Steel
+
   titanium:
     name: Titanium
+
   tempered-steel:
     name: Tempered Steel
+
   carbon:
     name: Carbon

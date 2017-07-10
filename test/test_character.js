@@ -1,6 +1,6 @@
 const assert = require("assert")
-const _ = require("lodash")
-const compose = _.flowRight
+const util = require("../lib/util")
+const compose = util.compose
 const character = require("../lib/character")
 
 describe("characters", () => {
@@ -30,7 +30,7 @@ describe("characters", () => {
         character.dexterity.assert(5, { race: 1 }, 6),
         character.intelligence.assert(5, {}, 5),
         character.strength.assert(5, { race: 2 }, 7),
-        character.level.up(),
+        character.level.up,
         character.race.assert("dwarf"),
         character.race.set("dwarf")
       )(character.create())
@@ -43,7 +43,7 @@ describe("characters", () => {
         character.dexterity.assert(5, { race: 3 }, 8),
         character.intelligence.assert(5, { race: 2 }, 7),
         character.strength.assert(5, {}, 5),
-        character.level.up(),
+        character.level.up,
         character.race.assert("elf"),
         character.race.set("elf")
       )(character.create())
@@ -56,7 +56,7 @@ describe("characters", () => {
         character.dexterity.assert(5, { race: 1 }, 6),
         character.intelligence.assert(5, { race: 1 }, 6),
         character.strength.assert(5, { race: 1 }, 6),
-        character.level.up(),
+        character.level.up,
         character.race.assert("human"),
         character.race.set("human")
       )(character.create())
@@ -69,7 +69,7 @@ describe("characters", () => {
         character.dexterity.assert(5, { race: 1 }, 6),
         character.intelligence.assert(5, {}, 5),
         character.strength.assert(5, { race: 3 }, 8),
-        character.level.up(),
+        character.level.up,
         character.race.assert("orc"),
         character.race.set("orc")
       )(character.create())
@@ -92,7 +92,7 @@ describe("characters", () => {
         character.dexterity.assert(5, { class: 3 }, 8),
         character.intelligence.assert(5, {}, 5),
         character.strength.assert(5, { class: 1 }, 6),
-        character.level.up(),
+        character.level.up,
         character.class.assert("archer"),
         character.class.set("archer")
       )(character.create())
@@ -105,7 +105,7 @@ describe("characters", () => {
         character.dexterity.assert(5, {}, 5),
         character.intelligence.assert(5, { class: 3 }, 8),
         character.strength.assert(5, {}, 5),
-        character.level.up(),
+        character.level.up,
         character.class.assert("magician"),
         character.class.set("magician")
       )(character.create())
@@ -118,7 +118,7 @@ describe("characters", () => {
         character.dexterity.assert(5, { class: 2 }, 7),
         character.intelligence.assert(5, {}, 5),
         character.strength.assert(5, { class: 1 }, 6),
-        character.level.up(),
+        character.level.up,
         character.class.assert("rogue"),
         character.class.set("rogue")
       )(character.create())
@@ -131,7 +131,7 @@ describe("characters", () => {
         character.dexterity.assert(5, { class: 1 }, 6),
         character.intelligence.assert(5, {}, 5),
         character.strength.assert(5, { class: 3 }, 8),
-        character.level.up(),
+        character.level.up,
         character.class.assert("warrior"),
         character.class.set("warrior")
       )(character.create())
@@ -154,7 +154,7 @@ describe("characters", () => {
         character.dexterity.assert(5, { race: 1, class: 2 }, 8),
         character.intelligence.assert(5, {}, 5),
         character.strength.assert(5, { race: 2, class: 1 }, 8),
-        character.level.up(),
+        character.level.up,
         character.class.assert("rogue"),
         character.class.set("rogue"),
         character.race.assert("dwarf"),
@@ -169,7 +169,7 @@ describe("characters", () => {
         character.dexterity.assert(5, { race: 3, class: 3 }, 11),
         character.intelligence.assert(5, { race: 2 }, 7),
         character.strength.assert(5, { class: 1 }, 6),
-        character.level.up(),
+        character.level.up,
         character.class.assert("archer"),
         character.class.set("archer"),
         character.race.assert("elf"),
@@ -184,7 +184,7 @@ describe("characters", () => {
         character.dexterity.assert(5, { race: 1 }, 6),
         character.intelligence.assert(5, { race: 1, class: 3 }, 9),
         character.strength.assert(5, { race: 1 }, 6),
-        character.level.up(),
+        character.level.up,
         character.class.assert("magician"),
         character.class.set("magician"),
         character.race.assert("human"),
@@ -199,7 +199,7 @@ describe("characters", () => {
         character.dexterity.assert(5, { race: 1, class: 1 }, 7),
         character.intelligence.assert(5, {}, 5),
         character.strength.assert(5, { race: 3, class: 3 }, 11),
-        character.level.up(),
+        character.level.up,
         character.class.assert("warrior"),
         character.class.set("warrior"),
         character.race.assert("orc"),
@@ -214,7 +214,7 @@ describe("characters", () => {
         character.experience.assert(5),
         character.level.assert(1),
         character.experience.gain(5),
-        character.level.up()
+        character.level.up
       )(character.create())
     })
     it("gains experience and levels up", () => {
@@ -223,7 +223,7 @@ describe("characters", () => {
         character.experience.assert(0),
         character.level.assert(2),
         (c) => character.experience.gain(character.experience.needed(1, c), c),
-        character.level.up()
+        character.level.up
       )(character.create())
     })
     it("gains experience and levels up twice", () => {
@@ -232,14 +232,14 @@ describe("characters", () => {
         character.experience.assert(0),
         character.level.assert(3),
         (c) => character.experience.gain(character.experience.needed(2, c), c),
-        character.level.up()
+        character.level.up
       )(character.create())
     })
     it("fails to level up with insufficient experience", () => {
       try {
         compose(
-          character.level.up(),
-          character.level.up()
+          character.level.up,
+          character.level.up
         )(character.create())
         throw new Error("Expected insufficient experience error")
       } catch (e) {
@@ -262,7 +262,7 @@ describe("characters", () => {
         alloc1assert(character.intelligence, 4),
         alloc1assert(character.strength, 5),
         character.attributePoints.assert(6),
-        character.level.up()
+        character.level.up
       )(character.create())
     })
     it("can't allocate insufficient attribute points", () => {
@@ -287,7 +287,7 @@ describe("characters", () => {
         tryalloc7(character.dexterity),
         tryalloc7(character.intelligence),
         tryalloc7(character.strength),
-        character.level.up()
+        character.level.up
       )(character.create())
     })
   })
