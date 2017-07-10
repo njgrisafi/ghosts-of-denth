@@ -7,7 +7,8 @@
     "lint": "eslint .",
     "test": "npm run test:cover",
     "test:no-cover": "mocha --recursive test",
-    "test:cover": "nyc --reporter=html --reporter=text npm run test:no-cover"
+    "test:cover": "nyc --reporter=html --reporter=text npm run test:no-cover",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/mrpudn/ghosts-of-denth#readme",
   "devDependencies": {
+    "coveralls": "^2.13.1",
     "eslint": "^3.19.0",
     "mocha": "^3.4.2",
     "nyc": "^11.0.3",
