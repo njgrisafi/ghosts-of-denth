@@ -8,7 +8,7 @@ describe("weapons", () => {
     it("creates a new weapon", () => {
       compose(
         weapon.name.assert("Weapon"),
-        weapon.class.assert(null),
+        weapon.type.assert(null),
         weapon.material.assert(null),
         weapon.handedness.assert("one-handed"),
         weapon.grade.assert(null)
@@ -17,7 +17,7 @@ describe("weapons", () => {
     it("creates a weapon with a full name", () => {
       compose(
         weapon.name.assert("Legendary Two-handed Carbon Axe"),
-        weapon.class.set("axe"),
+        weapon.type.set("axe"),
         weapon.material.set("carbon"),
         weapon.handedness.set("two-handed"),
         weapon.grade.set("legendary")
@@ -180,76 +180,125 @@ describe("weapons", () => {
       }
     })
   })
-  describe("creating weapons of various weapon classes", () => {
+  describe("creating weapons of various weapon types", () => {
     it("creates Axes", () => {
       compose(
         weapon.name.assert("Axe"),
-        weapon.class.assert("axe"),
-        weapon.class.set("axe")
+        weapon.type.assert("axe"),
+        weapon.type.set("axe")
       )(weapon.create())
     })
     it("creates Bows", () => {
       compose(
         weapon.name.assert("Bow"),
-        weapon.class.assert("bow"),
-        weapon.class.set("bow")
+        weapon.type.assert("bow"),
+        weapon.type.set("bow")
+      )(weapon.create())
+    })
+    it("creates Cleavers", () => {
+      compose(
+        weapon.name.assert("Cleaver"),
+        weapon.type.assert("cleaver"),
+        weapon.type.set("cleaver")
+      )(weapon.create())
+    })
+    it("creates Clubs", () => {
+      compose(
+        weapon.name.assert("Club"),
+        weapon.type.assert("club"),
+        weapon.type.set("club")
       )(weapon.create())
     })
     it("creates Crossbows", () => {
       compose(
         weapon.name.assert("Crossbow"),
-        weapon.class.assert("crossbow"),
-        weapon.class.set("crossbow")
+        weapon.type.assert("crossbow"),
+        weapon.type.set("crossbow")
       )(weapon.create())
     })
     it("creates Daggers", () => {
       compose(
         weapon.name.assert("Dagger"),
-        weapon.class.assert("dagger"),
-        weapon.class.set("dagger")
+        weapon.type.assert("dagger"),
+        weapon.type.set("dagger")
+      )(weapon.create())
+    })
+    it("creates Flails", () => {
+      compose(
+        weapon.name.assert("Flail"),
+        weapon.type.assert("flail"),
+        weapon.type.set("flail")
+      )(weapon.create())
+    })
+    it("creates Glaives", () => {
+      compose(
+        weapon.name.assert("Glaive"),
+        weapon.type.assert("glaive"),
+        weapon.type.set("glaive")
+      )(weapon.create())
+    })
+    it("creates Halberds", () => {
+      compose(
+        weapon.name.assert("Halberd"),
+        weapon.type.assert("halberd"),
+        weapon.type.set("halberd")
       )(weapon.create())
     })
     it("creates Maces", () => {
       compose(
         weapon.name.assert("Mace"),
-        weapon.class.assert("mace"),
-        weapon.class.set("mace")
+        weapon.type.assert("mace"),
+        weapon.type.set("mace")
       )(weapon.create())
     })
-    it("creates Polearms", () => {
+    it("creates Scythes", () => {
       compose(
-        weapon.name.assert("Polearm"),
-        weapon.class.assert("polearm"),
-        weapon.class.set("polearm")
+        weapon.name.assert("Scythe"),
+        weapon.type.assert("scythe"),
+        weapon.type.set("scythe")
+      )(weapon.create())
+    })
+    it("creates Spears", () => {
+      compose(
+        weapon.name.assert("Spear"),
+        weapon.type.assert("spear"),
+        weapon.type.set("spear")
       )(weapon.create())
     })
     it("creates Staves", () => {
       compose(
         weapon.name.assert("Staff"),
-        weapon.class.assert("staff"),
-        weapon.class.set("staff")
+        weapon.type.assert("staff"),
+        weapon.type.set("staff")
       )(weapon.create())
     })
     it("creates Swords", () => {
       compose(
         weapon.name.assert("Sword"),
-        weapon.class.assert("sword"),
-        weapon.class.set("sword")
+        weapon.type.assert("sword"),
+        weapon.type.set("sword")
       )(weapon.create())
     })
     it("creates Wands", () => {
       compose(
         weapon.name.assert("Wand"),
-        weapon.class.assert("wand"),
-        weapon.class.set("wand")
+        weapon.type.assert("wand"),
+        weapon.type.set("wand")
       )(weapon.create())
     })
-    it("fails to create weapons of invalid weapon classes", () => {
+    it("creates Whips", () => {
+      compose(
+        weapon.name.assert("Whip"),
+        weapon.type.assert("whip"),
+        weapon.type.set("whip")
+      )(weapon.create())
+    })
+    it("fails to create weapons of invalid weapon types", () => {
       try {
-        weapon.class.set("asdf", weapon.create())
-        throw new Error("Expected invalid weapon class error")
+        weapon.type.set("asdf", weapon.create())
+        throw new Error("Expected invalid weapon type error")
       } catch (e) {
-        assert.equal(e.message, "Invalid weapon class: asdf")
+        assert.equal(e.message, "Invalid weapon type: asdf")
       }
     })
   })

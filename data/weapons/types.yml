@@ -1,0 +1,49 @@
+types:
+
+  axe:
+    name: Axe
+
+  bow:
+    name: Bow
+
+  cleaver:
+    name: Cleaver
+
+  club:
+    name: Club
+
+  crossbow:
+    name: Crossbow
+
+  dagger:
+    name: Dagger
+
+  flail:
+    name: Flail
+
+  glaive:
+    name: Glaive
+
+  halberd:
+    name: Halberd
+
+  mace:
+    name: Mace
+
+  scythe:
+    name: Scythe
+
+  spear:
+    name: Spear
+
+  staff:
+    name: Staff
+
+  sword:
+    name: Sword
+
+  wand:
+    name: Wand
+
+  whip:
+    name: Whip
