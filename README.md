@@ -16,6 +16,10 @@ To install the project's dependencies:
 npm install
 ```
 
+## game guide
+
+For a reference guide to the game, please see: [`GUIDE.md`](GUIDE.md)
+
 ## contributing
 
 If you would like to contribute to this project, please see [`CONTRIBUTING.md`](CONTRIBUTING.md)
