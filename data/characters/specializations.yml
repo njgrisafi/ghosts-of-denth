@@ -1,7 +1,7 @@
-classes:
+specializations:
 
-  archer:
-    name: Archer
+  archery:
+    name: Archery
     modifiers:
       strength: 1
       intelligence: 0
@@ -10,8 +10,8 @@ classes:
       willpower: 0
       luck: 2
 
-  magician:
-    name: Magician
+  magic:
+    name: Magic
     modifiers:
       strength: 0
       intelligence: 3
@@ -20,8 +20,8 @@ classes:
       willpower: 3
       luck: 0
 
-  rogue:
-    name: Rogue
+  stealth:
+    name: Stealth
     modifiers:
       strength: 1
       intelligence: 0
@@ -30,8 +30,8 @@ classes:
       willpower: 0
       luck: 3
 
-  warrior:
-    name: Warrior
+  war:
+    name: War
     modifiers:
       strength: 3
       intelligence: 0
