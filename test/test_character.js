@@ -16,7 +16,7 @@ describe("characters", () => {
         character.attributePoints.assert(0),
         character.experience.assert(0),
         character.level.assert(0),
-        character.class.assert(null),
+        character.specialization.assert(null),
         character.race.assert(null)
       )(character.create())
     })
@@ -83,95 +83,95 @@ describe("characters", () => {
       }
     })
   })
-  describe("creating characters of various character classes", () => {
+  describe("creating characters of various character specializations", () => {
     it("creates Archers", () => {
       compose(
-        character.luck.assert(5, { class: 2 }, 7),
+        character.luck.assert(5, { specialization: 2 }, 7),
         character.willpower.assert(5, {}, 5),
         character.endurance.assert(5, {}, 5),
-        character.dexterity.assert(5, { class: 3 }, 8),
+        character.dexterity.assert(5, { specialization: 3 }, 8),
         character.intelligence.assert(5, {}, 5),
-        character.strength.assert(5, { class: 1 }, 6),
+        character.strength.assert(5, { specialization: 1 }, 6),
         character.level.up,
-        character.class.assert("archer"),
-        character.class.set("archer")
+        character.specialization.assert("archery"),
+        character.specialization.set("archery")
       )(character.create())
     })
     it("creates Magicians", () => {
       compose(
         character.luck.assert(5, {}, 5),
-        character.willpower.assert(5, { class: 3 }, 8),
+        character.willpower.assert(5, { specialization: 3 }, 8),
         character.endurance.assert(5, {}, 5),
         character.dexterity.assert(5, {}, 5),
-        character.intelligence.assert(5, { class: 3 }, 8),
+        character.intelligence.assert(5, { specialization: 3 }, 8),
         character.strength.assert(5, {}, 5),
         character.level.up,
-        character.class.assert("magician"),
-        character.class.set("magician")
+        character.specialization.assert("magic"),
+        character.specialization.set("magic")
       )(character.create())
     })
     it("creates Rogues", () => {
       compose(
-        character.luck.assert(5, { class: 3 }, 8),
+        character.luck.assert(5, { specialization: 3 }, 8),
         character.willpower.assert(5, {}, 5),
         character.endurance.assert(5, {}, 5),
-        character.dexterity.assert(5, { class: 2 }, 7),
+        character.dexterity.assert(5, { specialization: 2 }, 7),
         character.intelligence.assert(5, {}, 5),
-        character.strength.assert(5, { class: 1 }, 6),
+        character.strength.assert(5, { specialization: 1 }, 6),
         character.level.up,
-        character.class.assert("rogue"),
-        character.class.set("rogue")
+        character.specialization.assert("stealth"),
+        character.specialization.set("stealth")
       )(character.create())
     })
     it("creates Warriors", () => {
       compose(
         character.luck.assert(5, {}, 5),
         character.willpower.assert(5, {}, 5),
-        character.endurance.assert(5, { class: 2 }, 7),
-        character.dexterity.assert(5, { class: 1 }, 6),
+        character.endurance.assert(5, { specialization: 2 }, 7),
+        character.dexterity.assert(5, { specialization: 1 }, 6),
         character.intelligence.assert(5, {}, 5),
-        character.strength.assert(5, { class: 3 }, 8),
+        character.strength.assert(5, { specialization: 3 }, 8),
         character.level.up,
-        character.class.assert("warrior"),
-        character.class.set("warrior")
+        character.specialization.assert("war"),
+        character.specialization.set("war")
       )(character.create())
     })
-    it("fails to create invalid character classes", () => {
+    it("fails to create invalid character specializations", () => {
       try {
-        character.class.set("asdf", character.create())
-        throw new Error("Expected invalid character class error")
+        character.specialization.set("asdf", character.create())
+        throw new Error("Expected invalid character specialization error")
       } catch (e) {
-        assert.equal(e.message, "Invalid character class: asdf")
+        assert.equal(e.message, "Invalid character specialization: asdf")
       }
     })
   })
-  describe("creating characters of races and character classes", () => {
+  describe("creating characters of races and character specializations", () => {
     it("creates Dwarf Rogues", () => {
       compose(
-        character.luck.assert(5, { race: 2, class: 3 }, 10),
+        character.luck.assert(5, { race: 2, specialization: 3 }, 10),
         character.willpower.assert(5, {}, 5),
         character.endurance.assert(5, { race: 1 }, 6),
-        character.dexterity.assert(5, { race: 1, class: 2 }, 8),
+        character.dexterity.assert(5, { race: 1, specialization: 2 }, 8),
         character.intelligence.assert(5, {}, 5),
-        character.strength.assert(5, { race: 2, class: 1 }, 8),
+        character.strength.assert(5, { race: 2, specialization: 1 }, 8),
         character.level.up,
-        character.class.assert("rogue"),
-        character.class.set("rogue"),
+        character.specialization.assert("stealth"),
+        character.specialization.set("stealth"),
         character.race.assert("dwarf"),
         character.race.set("dwarf")
       )(character.create())
     })
     it("creates Elf Archers", () => {
       compose(
-        character.luck.assert(5, { class: 2 }, 7),
+        character.luck.assert(5, { specialization: 2 }, 7),
         character.willpower.assert(5, { race: 1 }, 6),
         character.endurance.assert(5, {}, 5),
-        character.dexterity.assert(5, { race: 3, class: 3 }, 11),
+        character.dexterity.assert(5, { race: 3, specialization: 3 }, 11),
         character.intelligence.assert(5, { race: 2 }, 7),
-        character.strength.assert(5, { class: 1 }, 6),
+        character.strength.assert(5, { specialization: 1 }, 6),
         character.level.up,
-        character.class.assert("archer"),
-        character.class.set("archer"),
+        character.specialization.assert("archery"),
+        character.specialization.set("archery"),
         character.race.assert("elf"),
         character.race.set("elf")
       )(character.create())
@@ -179,14 +179,14 @@ describe("characters", () => {
     it("creates Human Magicians", () => {
       compose(
         character.luck.assert(5, { race: 1 }, 6),
-        character.willpower.assert(5, { race: 1, class: 3 }, 9),
+        character.willpower.assert(5, { race: 1, specialization: 3 }, 9),
         character.endurance.assert(5, { race: 1 }, 6),
         character.dexterity.assert(5, { race: 1 }, 6),
-        character.intelligence.assert(5, { race: 1, class: 3 }, 9),
+        character.intelligence.assert(5, { race: 1, specialization: 3 }, 9),
         character.strength.assert(5, { race: 1 }, 6),
         character.level.up,
-        character.class.assert("magician"),
-        character.class.set("magician"),
+        character.specialization.assert("magic"),
+        character.specialization.set("magic"),
         character.race.assert("human"),
         character.race.set("human")
       )(character.create())
@@ -195,13 +195,13 @@ describe("characters", () => {
       compose(
         character.luck.assert(5, {}, 5),
         character.willpower.assert(5, {}, 5),
-        character.endurance.assert(5, { race: 2, class: 2 }, 9),
-        character.dexterity.assert(5, { race: 1, class: 1 }, 7),
+        character.endurance.assert(5, { race: 2, specialization: 2 }, 9),
+        character.dexterity.assert(5, { race: 1, specialization: 1 }, 7),
         character.intelligence.assert(5, {}, 5),
-        character.strength.assert(5, { race: 3, class: 3 }, 11),
+        character.strength.assert(5, { race: 3, specialization: 3 }, 11),
         character.level.up,
-        character.class.assert("warrior"),
-        character.class.set("warrior"),
+        character.specialization.assert("war"),
+        character.specialization.set("war"),
         character.race.assert("orc"),
         character.race.set("orc")
       )(character.create())
